@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="com.spring.advice.ApplicationExceptionHandlerAdvice"
+		id="applicationExceptionHandlerAdvice" />
+
+	<bean class="com.spring.beans.UserManager" id="userManager" />
+	
+	<bean class="com.spring.beans.UserManager" id="userManager1" />
+
+	<aop:config>
+		<aop:aspect ref="applicationExceptionHandlerAdvice">
+			<aop:after-throwing method="userNotFoundExceptionHandler"
+				pointcut="execution(* com.spring.beans.*.findUser(..))" throwing="unfe" />
+			<aop:after-throwing method="userRegistrationFailedExceptionHandler"
+				pointcut="execution(* com.spring.beans.*.registerUser(..))"
+				throwing="urfe" />
+		</aop:aspect>
+	</aop:config>
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+	<bean class="com.spring.beans.Calculator" id="calculator" />
+	<bean class="com.spring.advice.LoggingAdvice" id="loggingAdvice" />
+
+	<!-- <aop:config> <aop:pointcut expression="execution(* com.spring.beans.Calculator.sum(..))" 
+		id="pc1"/> <aop:aspect ref="loggingAdvice"> <aop:around method="log" pointcut-ref="pc1"/> 
+		</aop:aspect> </aop:config> -->
+
+	<aop:config>
+
+		<aop:aspect ref="loggingAdvice">
+			<!-- <aop:around method="log" pointcut="execution(* com.spring.beans.Calculator.sum(..))" 
+				/> -->
+			<!-- <aop:around method="log" pointcut="execution(* com.spring.beans.Calculator.*(..))" 
+				/> -->
+
+			<!-- <aop:around method="log" pointcut="execution(* com.spring.beans.*.sum(..))" 
+				/> -->
+
+			<aop:around method="log" pointcut="execution(* com.spring.beans.*.*(..))" />
+
+
+
+
+		</aop:aspect>
+	</aop:config>
+</beans>
